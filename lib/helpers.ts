@@ -7,7 +7,7 @@ import {
   NETWORK_MONAD_TESTNET, 
   NETWORK_SEPOLIA, 
   SEPOLIA_CHAIN_ID 
-} from "../lib/const"
+} from "@/lib/const"
 
 export const unAllowChainID = (chainID: number): boolean => {
   return (SEPOLIA_CHAIN_ID !== chainID && 

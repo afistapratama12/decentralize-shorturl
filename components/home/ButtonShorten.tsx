@@ -1,5 +1,5 @@
 import { JsonRpcSigner } from "ethers";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 import { getSignerContract } from "@/lib/contract";
 import { checkURL, getNetworks, getNewLink, unAllowChainID } from "@/lib/helpers";

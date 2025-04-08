@@ -3,7 +3,7 @@ import {
   NETWORK_ARB_SEPOLIA,
   NETWORK_MONAD_TESTNET,
   NETWORK_HARDHAT,
-} from '../lib/const'
+} from '@/lib/const'
 
 export const rpcUrl = (network: string): string | undefined => {
   switch (network) {

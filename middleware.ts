@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { ethers } from 'ethers';
 import urlShortenerJson from '@/lib/abi/urlShortener.json';
-import { getEnvCheck } from './lib/env';
+import { getEnvCheck } from '@/lib/env';
 import { 
   NETWORK_ARB_SEPOLIA, 
   NETWORK_HARDHAT, 
   NETWORK_MONAD_TESTNET, 
   NETWORK_SEPOLIA 
-} from './lib/const';
+} from '@/lib/const';
 
 // sepolia -> root /[shortCode]
 // arbitrumSepolia = /a/[shortCode]

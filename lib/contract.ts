@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
-import urlShortenerJson from './abi/urlShortener.json'
-import { contractAddress } from './env';
+import urlShortenerJson from '@/lib/abi/urlShortener.json'
+import { contractAddress } from '@/lib/env';
 
 export function getSignerContract(signer: ethers.JsonRpcSigner, network?: string) {
   if (!signer) {

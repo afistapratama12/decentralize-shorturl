@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from "react";
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import { useQRCode } from 'next-qrcode';
-import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader } from "@/components/ui/dialog";
 import { CircleArrowRight, Facebook, Send } from "lucide-react";
 
 export default function GeneratedLink({
