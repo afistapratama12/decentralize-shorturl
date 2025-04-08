@@ -117,7 +117,7 @@ export default function ButtonShorten({
         onLoad={() => {
           setTurnstileStatus("required");
         }}
-        onVerify={(token) => {
+        onVerify={() => {
           setTurnstileStatus("success");
         }}
       />

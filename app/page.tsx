@@ -62,21 +62,13 @@ export default function URLShortenerApp() {
                     {/* </div> */}
                     <button
                       className={
-                        "!absolute right-0 bottom-12 lg:bottom-0 lg:right-1 lg:top-1 lg:z-10 select-none rounded-lg bg-blue-500 " +
+                        "!absolute right-0 bottom-12 md:bottom-0 md:right-1 md:top-1 md:z-10 select-none rounded-lg bg-blue-500 " +
                         "py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white " +
                         `transition-all ${
                           isConnected &&
                           "cursor-pointer hover:scale-105 hover:bg-blue-600 focus:opacity-[0.85] focus:shadow-none active:shadow-none peer-placeholder-shown:pointer-events-none peer-placeholder-shown:bg-blue-gray-500 peer-placeholder-shown:opacity-50 peer-placeholder-shown:shadow-none"
                         }`
                       }
-                      // className={
-                      //   "!absolute right-0 bottom-12 lg:right-1 lg:top-1 z-10 select-none rounded-lg bg-blue-500 " +
-                      //   "py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white " +
-                      //   `transition-all ${
-                      //     isConnected &&
-                      //     "cursor-pointer hover:scale-105 hover:bg-blue-600 focus:opacity-[0.85] focus:shadow-none active:shadow-none peer-placeholder-shown:pointer-events-none peer-placeholder-shown:bg-blue-gray-500 peer-placeholder-shown:opacity-50 peer-placeholder-shown:shadow-none"
-                      //   }`
-                      // }
                       type="button"
                       data-ripple-light="true"
                       disabled={!isConnected}
