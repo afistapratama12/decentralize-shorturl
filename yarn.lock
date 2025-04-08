@@ -3955,6 +3955,11 @@ next-qrcode@^2.5.1:
   dependencies:
     qrcode "^1.5.3"
 
+next-turnstile@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/next-turnstile/-/next-turnstile-1.0.2.tgz#f1937d54ce4d272e20631bf8af3c960e5cf53c48"
+  integrity sha512-PdCDkMQgJLGeTJpBz/cmmsKcysI0z+eN8uYab/8HuxWQ3i3NbhAfufE/Gw3ubXEd/xDezve/eVp+QBX3T7shOQ==
+
 next@15.2.4:
   version "15.2.4"
   resolved "https://registry.yarnpkg.com/next/-/next-15.2.4.tgz#e05225e9511df98e3b2edc713e17f4c970bff961"
