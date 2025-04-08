@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useAccount, useWalletClient, useChainId } from 'wagmi';
 import { ethers } from 'ethers';
-import { unAllowChainID } from "@/libs/helpers";
+import { unAllowChainID } from "@/lib/helpers";
 
 export default function useHomeHooks() {
   const { address, isConnected } = useAccount();

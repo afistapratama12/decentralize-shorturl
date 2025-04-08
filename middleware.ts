@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { ethers } from 'ethers';
-import urlShortenerJson from '@/libs/abi/urlShortener.json';
-import { getEnvCheck } from './libs/env';
+import urlShortenerJson from '@/lib/abi/urlShortener.json';
+import { getEnvCheck } from './lib/env';
 import { 
   NETWORK_ARB_SEPOLIA, 
+  NETWORK_HARDHAT, 
   NETWORK_MONAD_TESTNET, 
   NETWORK_SEPOLIA 
-} from './libs/const';
+} from './lib/const';
 
 // sepolia -> root /[shortCode]
 // arbitrumSepolia = /a/[shortCode]
@@ -29,6 +30,9 @@ export async function middleware(request: NextRequest) {
   } else if (pathname.includes('/m/')) {
     shortCode = pathname.split('/')[2]; // get the short code after "/m"
     netwoks = NETWORK_MONAD_TESTNET
+  } else if (pathname.includes('/h/')){
+    shortCode = pathname.split('/')[2]; // get the short code after "/"
+    netwoks = NETWORK_HARDHAT
   } else {
     shortCode = pathname.split('/')[1]; // get the short code after "/"
   }

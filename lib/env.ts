@@ -2,7 +2,8 @@ import {
   NETWORK_SEPOLIA,
   NETWORK_ARB_SEPOLIA,
   NETWORK_MONAD_TESTNET,
-} from './const'
+  NETWORK_HARDHAT,
+} from '../lib/const'
 
 export const rpcUrl = (network: string): string | undefined => {
   switch (network) {
@@ -12,6 +13,8 @@ export const rpcUrl = (network: string): string | undefined => {
       return process.env.NEXT_PUBLIC_RPC_URL_ARB_SEPOLIA
     case NETWORK_MONAD_TESTNET:
       return process.env.NEXT_PUBLIC_RPC_URL_MONAD_TESTNET
+    case NETWORK_HARDHAT:
+      return process.env.NEXT_PUBLIC_RPC_URL_HARDHAT
     default:
       return undefined
   }
@@ -25,6 +28,8 @@ export const contractAddress = (network: string): string | undefined => {
       return process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_ARB_SEPOLIA
     case NETWORK_MONAD_TESTNET:
       return process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_MONAD_TESTNET
+    case NETWORK_HARDHAT:
+      return process.env.NEXT_PUBLIC_CONTRACT_ADDRESS_HARDHAT
     default:
       return undefined
   }
