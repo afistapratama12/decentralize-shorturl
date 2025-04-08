@@ -30,11 +30,11 @@ export default function URLShortenerApp() {
               blockchain technology.
             </p>
           </div>
-          <div className="flex justify-center">
-            <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 bg-gray-dark-2 px-10 py-8 shadow-2xl">
+          <div className="flex justify-center mx-4 lg:mx-0">
+            <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 lg:bg-gray-dark-2 px-8 lg:px-10 py-8 shadow-xl lg:shadow-2xl">
               <div className="space-y-4">
                 <div>
-                  <p className="font-bold mb-2">Shorten a long URL</p>
+                  <p className="font-bold mb-4 lg:mb-2">Shorten a long URL</p>
                   <input
                     id="longUrl"
                     type="text"
@@ -42,30 +42,41 @@ export default function URLShortenerApp() {
                     value={longUrl}
                     onChange={(e) => setLongUrl(e.target.value)}
                     className={
-                      "py-2 rounded-md w-full border border-gray-dark-6 bg-gray-dark-3 px-3 py-2 " +
-                      "text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent"
+                      "py-2 rounded-md w-full border border-gray-dark-6 bg-gray-dark-3 px-3 py-2 text-sm " +
+                      "text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent lg:text-base"
                     }
                   />
                 </div>
                 <div>
-                  <p className="font-bold mb-2">Customize your link</p>
+                  <p className="font-bold mb-4 lg:mb-2">Customize your link</p>
                   <div className="relative flex gap-3">
                     {/* <div> */}
                     <input
                       placeholder={urlPath("cuty.im", chainId)}
-                      className="bg-muted px-3 py-2 text-center font-semibold"
+                      className={`bg-muted px-3 py-2 text-center ` +
+                        "font-normal w-22 text-sm " +
+                        "lg:font-semibold lg:w-xs lg:text-base"
+                      }
                       disabled={true}
                     />
                     {/* </div> */}
                     <button
                       className={
-                        "!absolute right-1 top-1 z-10 select-none rounded-lg bg-blue-500 " +
+                        "!absolute right-0 bottom-12 lg:bottom-0 lg:right-1 lg:top-1 lg:z-10 select-none rounded-lg bg-blue-500 " +
                         "py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white " +
                         `transition-all ${
                           isConnected &&
                           "cursor-pointer hover:scale-105 hover:bg-blue-600 focus:opacity-[0.85] focus:shadow-none active:shadow-none peer-placeholder-shown:pointer-events-none peer-placeholder-shown:bg-blue-gray-500 peer-placeholder-shown:opacity-50 peer-placeholder-shown:shadow-none"
                         }`
                       }
+                      // className={
+                      //   "!absolute right-0 bottom-12 lg:right-1 lg:top-1 z-10 select-none rounded-lg bg-blue-500 " +
+                      //   "py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white " +
+                      //   `transition-all ${
+                      //     isConnected &&
+                      //     "cursor-pointer hover:scale-105 hover:bg-blue-600 focus:opacity-[0.85] focus:shadow-none active:shadow-none peer-placeholder-shown:pointer-events-none peer-placeholder-shown:bg-blue-gray-500 peer-placeholder-shown:opacity-50 peer-placeholder-shown:shadow-none"
+                      //   }`
+                      // }
                       type="button"
                       data-ripple-light="true"
                       disabled={!isConnected}
@@ -79,7 +90,10 @@ export default function URLShortenerApp() {
                       placeholder="Short code (e.g. abc123)"
                       value={shortCode}
                       onChange={(e) => setShortCode(e.target.value)}
-                      className="rounded-md w-full border border-gray-dark-6 bg-gray-dark-3 px-3 py-2 text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent"
+                      className={
+                        `rounded-md w-full border text-sm border-gray-dark-6 bg-gray-dark-3 px-3 py-2 text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent ` +
+                        `lg:text-base`
+                      }
                     />
                   </div>
                 </div>

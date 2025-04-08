@@ -27,8 +27,8 @@ export default function GeneratedLink({
   <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 text-center">
     <p className="text-xl text-dark-foreground mb-12">Copy Your Link and Share It!</p>
   </div>
-  <div className="flex justify-center">
-    <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 bg-gray-dark-2 px-10 py-8 shadow-2xl">
+  <div className="flex justify-center mx-4 lg:mx-0">
+    <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 bg-gray-dark-2 px-8 lg:px-10 py-8 shadow-xl lg:shadow-2xl">
       <div className="space-y-4">
         <div>
           <p className="font-bold mb-2">Your long URL</p>
@@ -59,10 +59,10 @@ export default function GeneratedLink({
       <div className="flex justify-left gap-2">
         {/* semua pakai modal, untuk hp bisa bagus */}
         <Button
-          className="cursor-pointer bg-blue-500 text-md"
+          className="cursor-pointer bg-blue-500 text-sm lg:text-md"
         >
             <CircleArrowRight />
-            VIsit
+            Visit
         </Button>
         <QRCode 
           generatedLink={generatedLink}
@@ -71,7 +71,7 @@ export default function GeneratedLink({
           generatedLink={generatedLink}
         />
         <Button 
-          className="cursor-pointer bg-blue-500 text-md hover:bg-blue-600 w-24"
+          className="cursor-pointer bg-blue-500 text-md hover:bg-blue-600 w-20 lg:w-24 text-sm lg:text-md"
           onClick={copyToClipboard}
         >
           {copySuccess ? copySuccess : 'Copy Link'}
@@ -79,7 +79,7 @@ export default function GeneratedLink({
       </div>
       <div id='button-back' className="flex justify-center">
         <Button
-          className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-md shadow-md w-xs h-12"
+          className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-md shadow-md w-3xs lg:w-xs h-12"
           onClick={() => {
             window.location.href = '/'
           }}
@@ -107,7 +107,7 @@ export function QRCode({generatedLink}: {generatedLink: string}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="cursor-pointer">QR Code</Button>
+        <Button variant="outline" className="cursor-pointer text-sm lg:text-md">QR Code</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -166,7 +166,7 @@ export function ShareSocial({generatedLink}: {generatedLink: string}) {
   return (
     <Dialog>
     <DialogTrigger asChild>
-      <Button variant="outline" className="cursor-pointer">Share</Button>
+      <Button variant="outline" className="cursor-pointer text-sm lg:text-md">Share</Button>
     </DialogTrigger>
     <DialogContent className="sm:max-w-[425px]">
       <DialogHeader>
