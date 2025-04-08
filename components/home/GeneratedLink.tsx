@@ -1,18 +1,26 @@
 'use client'
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button"
 import { useQRCode } from 'next-qrcode';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogHeader } from "@/components/ui/dialog";
 import { CircleArrowRight, Facebook, Send } from "lucide-react";
+import useIsLargeScreen from "@/hooks/screen.hooks";
+import { getExplorerUrl } from "@/lib/helpers";
 
 export default function GeneratedLink({
   generatedLink,
+  txHash,
   longUrl,
+  chainId
 }: {
   generatedLink: string
+  txHash: string
   longUrl: string
+  chainId: number
 }) {
+  const { isLargeScreen } = useIsLargeScreen();
+
   const [copySuccess, setCopySuccess] = useState('');
 
   const copyToClipboard = () => {
@@ -23,13 +31,30 @@ export default function GeneratedLink({
     }
   };
 
+  const linkExplorerUrl = useMemo(() => getExplorerUrl(chainId, txHash), [chainId, txHash]);
+
   return (<>
   <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 text-center">
     <p className="text-xl text-dark-foreground mb-12">Copy Your Link and Share It!</p>
   </div>
   <div className="flex justify-center mx-4 lg:mx-0">
-    <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 bg-gray-dark-2 px-8 lg:px-10 py-8 shadow-xl lg:shadow-2xl">
+    <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 bg-gray-dark-2 px-8 lg:px-10 py-8 shadow-xl lg:shadow-2xl dark:shadow-lg dark:shadow-blue-500/30">
       <div className="space-y-4">
+        <div className="flex justify-between gap-4">
+          <p className="font-bold mb-2">Transaction Hash</p>
+          {
+            isLargeScreen && txHash ? (
+              <a href={linkExplorerUrl} target="_blank" rel="noopener noreferrer" className="font-semibold cursor-pointer hover:text-slate-600 dark:hover:text-gray-300">
+                {txHash.slice(0, 16) + "..." + txHash.slice(txHash.length - 10)}
+              </a>
+            ) : (
+              <a href={linkExplorerUrl} target="_blank" rel="noopener noreferrer" className="font-semibold cursor-pointer hover:text-slate-600 dark:hover:text-gray-300">
+                {txHash.slice(0, 8) + "..." + txHash.slice(txHash.length - 6)}
+              </a>
+            )
+          }
+        </div>
+        
         <div>
           <p className="font-bold mb-2">Your long URL</p>
           <input
@@ -39,7 +64,7 @@ export default function GeneratedLink({
             disabled
             className={
               "py-2 rounded-md w-full border border-gray-dark-6 bg-gray-dark-3 px-3 py-2 "+
-              "text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent"
+              "text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent dark:text-white"
             }
           />
         </div>
@@ -51,7 +76,7 @@ export default function GeneratedLink({
               type="text"
               value={generatedLink}
               disabled
-              className="rounded-md w-full border border-gray-dark-6 bg-gray-dark-3 px-3 py-2 text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent"
+              className="rounded-md w-full border border-gray-dark-6 bg-gray-dark-3 px-3 py-2 text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent dark:text-white"
             />
           </div>
         </div>
@@ -59,7 +84,10 @@ export default function GeneratedLink({
       <div className="flex justify-left gap-2">
         {/* semua pakai modal, untuk hp bisa bagus */}
         <Button
-          className="cursor-pointer bg-blue-500 text-sm lg:text-md"
+          className="cursor-pointer bg-blue-500 text-sm lg:text-md dark:text-white hover:bg-blue-600"
+          onClick={() => {
+            window.open(generatedLink, '_blank');
+          }}
         >
             <CircleArrowRight />
             Visit
@@ -71,7 +99,7 @@ export default function GeneratedLink({
           generatedLink={generatedLink}
         />
         <Button 
-          className="cursor-pointer bg-blue-500 text-md hover:bg-blue-600 w-20 lg:w-24 text-sm lg:text-md"
+          className="cursor-pointer bg-blue-500 text-md hover:bg-blue-600 w-20 lg:w-24 text-sm lg:text-md dark:text-white"
           onClick={copyToClipboard}
         >
           {copySuccess ? copySuccess : 'Copy Link'}
@@ -79,7 +107,7 @@ export default function GeneratedLink({
       </div>
       <div id='button-back' className="flex justify-center">
         <Button
-          className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-md shadow-md w-3xs lg:w-xs h-12"
+          className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-md shadow-md w-3xs lg:w-xs h-12 dark:text-white"
           onClick={() => {
             window.location.href = '/'
           }}
@@ -109,30 +137,33 @@ export function QRCode({generatedLink}: {generatedLink: string}) {
       <DialogTrigger asChild>
         <Button variant="outline" className="cursor-pointer text-sm lg:text-md">QR Code</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent 
+        // className="sm:max-w-[425px]"
+        className="sm:max-w-[365px] rounded-lg"
+      >
         <DialogHeader>
           <DialogTitle>QR Code</DialogTitle>
         </DialogHeader>
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-2 md:gap-4">
           <Canvas 
             text={generatedLink}
             options={{
               errorCorrectionLevel: 'M',
-              margin: 3,
+              margin: 2,
               scale: 4,
-              width: 250,
+              width: 200,
             }}
           />
           <div className="flex flex-col gap-2 mt-4">
             <Button 
-              className="cursor-pointer text-md bg-blue-500 hover:bg-blue-700"
+              className="cursor-pointer text-md bg-blue-500 hover:bg-blue-700 dark:text-white"
               onClick={() => downloadQRCode('svg')} 
             >SVG</Button>
             <Button 
-              className="cursor-pointer text-md bg-blue-500 hover:bg-blue-700"
+              className="cursor-pointer text-md bg-blue-500 hover:bg-blue-700 dark:text-white"
               onClick={() => downloadQRCode('png')}
               >PNG</Button>
-            <Button className="cursor-pointer text-md bg-blue-500 hover:bg-blue-700"
+            <Button className="cursor-pointer text-md bg-blue-500 hover:bg-blue-700 dark:text-white"
               onClick={() => downloadQRCode('jpg')}
             >JPG</Button>
           </div>

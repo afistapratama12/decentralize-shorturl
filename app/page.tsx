@@ -14,6 +14,8 @@ export default function URLShortenerApp() {
   const [shortCode, setShortCode] = useState("");
   const [longUrl, setLongUrl] = useState("");
   const [generatedLink, setGeneratedLink] = useState("");
+  const [txHash, setTxHash] = useState("");
+
   return (
     <div>
       <Navigation />
@@ -31,7 +33,7 @@ export default function URLShortenerApp() {
             </p>
           </div>
           <div className="flex justify-center mx-4 lg:mx-0">
-            <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 lg:bg-gray-dark-2 px-8 lg:px-10 py-8 shadow-xl lg:shadow-2xl">
+            <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 lg:bg-gray-dark-2 px-8 lg:px-10 py-8 shadow-xl lg:shadow-2xl dark:shadow-lg dark:shadow-blue-500/30">
               <div className="space-y-4">
                 <div>
                   <p className="font-bold mb-4 lg:mb-2">Shorten a long URL</p>
@@ -43,7 +45,7 @@ export default function URLShortenerApp() {
                     onChange={(e) => setLongUrl(e.target.value)}
                     className={
                       "py-2 rounded-md w-full border border-gray-dark-6 bg-gray-dark-3 px-3 py-2 text-sm " +
-                      "text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent lg:text-base"
+                      "text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent lg:text-base dark:text-white"
                     }
                   />
                 </div>
@@ -54,7 +56,7 @@ export default function URLShortenerApp() {
                     <input
                       placeholder={urlPath("cuty.im", chainId)}
                       className={`bg-muted px-3 py-2 text-center ` +
-                        "font-normal w-22 text-sm " +
+                        "font-normal w-22 text-sm dark:text-white " +
                         "lg:font-semibold lg:w-xs lg:text-base"
                       }
                       disabled={true}
@@ -84,7 +86,7 @@ export default function URLShortenerApp() {
                       onChange={(e) => setShortCode(e.target.value)}
                       className={
                         `rounded-md w-full border text-sm border-gray-dark-6 bg-gray-dark-3 px-3 py-2 text-black text-gray-dark-12 placeholder-gray-dark-8 focus:border-transparent ` +
-                        `lg:text-base`
+                        `lg:text-base dark:text-white`
                       }
                     />
                   </div>
@@ -100,13 +102,14 @@ export default function URLShortenerApp() {
                   longUrl={longUrl}
                   setGeneratedLink={setGeneratedLink}
                   chainId={chainId}
+                  setTxHash={setTxHash}
                 />
               </div>
             </div>
           </div>
         </>
       ) : (
-        <GeneratedLink generatedLink={generatedLink} longUrl={longUrl} />
+        <GeneratedLink generatedLink={generatedLink} longUrl={longUrl} txHash={txHash} chainId={chainId} />
       )}
     </div>
   );

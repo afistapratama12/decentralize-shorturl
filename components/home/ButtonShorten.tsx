@@ -15,6 +15,7 @@ export type ButtonShortenProps = {
   status: string,
   setStatus: (status: string) => void;
   setGeneratedLink: (link: string) => void;
+  setTxHash: (hash: string) => void;
 }
 
 export default function ButtonShorten({
@@ -25,7 +26,8 @@ export default function ButtonShorten({
   longUrl,
   status,
   setStatus,
-  setGeneratedLink
+  setGeneratedLink,
+  setTxHash
 }: ButtonShortenProps) {
   const [turnstileStatus, setTurnstileStatus] = useState<
     "success" | "error" | "expired" | "required"
@@ -73,15 +75,16 @@ export default function ButtonShorten({
 
     try {
       setStatus('Transaction pending...');
-      console.log('Getting contract instance...');
+      // console.log('Getting contract instance...');
       const contract = getSignerContract(signer, getNetworks(chainId));
 
       const tx = await contract.setURL(shortCode, longUrl);
-      console.log('Transaction sent. Hash:', tx.hash);
+      // console.log('Transaction sent. Hash:', tx.hash);
       setStatus(`Transaction sent. Hash: ${tx.hash}`);
+      setTxHash(tx.hash);
 
       const receipt = await tx.wait();
-      console.log('Transaction confirmed:', receipt);
+      console.log('Transaction confirmed:', receipt?.transactionHash);
 
       setGeneratedLink(getNewLink(window.location.origin, shortCode, chainId));
       setStatus('Transaction successful!');

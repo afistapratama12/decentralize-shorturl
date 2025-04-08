@@ -6,6 +6,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { config } from '@/lib/wagmi';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const theme = darkTheme({
   accentColor: '#0E76FD',
@@ -22,8 +23,6 @@ export default function Web3Providers({ children }: { children: React.ReactNode 
     setMounted(true);
   }, []);
 
-  console.log("mounted", mounted)
-
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
@@ -35,6 +34,12 @@ export default function Web3Providers({ children }: { children: React.ReactNode 
 
   if (!mounted) return null
   return (
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="dark"
+      enableSystem
+      disableTransitionOnChange 
+    >
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider theme={theme}>
@@ -42,5 +47,6 @@ export default function Web3Providers({ children }: { children: React.ReactNode 
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
+    </ThemeProvider>
   );
 }

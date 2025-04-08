@@ -64,7 +64,7 @@ export function checkURL(url: string): boolean {
 export function urlPath(baseUrl: string, chainId: number) : string {
   switch (chainId) {
     case SEPOLIA_CHAIN_ID:
-      return baseUrl
+      return baseUrl + "/"
     case ARBITRUM_SEPOLIA_CHAIN_ID:
       return baseUrl + "/a/"
     case MONAD_TESTNET_CHAIN_ID:
@@ -79,4 +79,17 @@ export function urlPath(baseUrl: string, chainId: number) : string {
 export function getNewLink(baseUrl: string, shortCode: string, chainId: number): string {
   const url = urlPath(baseUrl, chainId)
   return url + shortCode
+}
+
+export function getExplorerUrl(chainId: number, txHash: string): string {
+  switch (chainId) {
+    case SEPOLIA_CHAIN_ID:
+      return `https://sepolia.etherscan.io/tx/${txHash}`
+    case ARBITRUM_SEPOLIA_CHAIN_ID:
+      return `https://sepolia.arbiscan.io/tx/${txHash}`
+    case MONAD_TESTNET_CHAIN_ID:
+      return `https://testnet.monadexplorer.com/tx/${txHash}`
+    default:
+      return ""
+  }
 }

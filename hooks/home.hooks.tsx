@@ -31,7 +31,7 @@ export default function useHomeHooks() {
           setSigner(null);
         });
     } else {
-      console.log('Conditions not met for signer setup:', {
+      console.error('Conditions not met for signer setup:', {
         windowExists: typeof window !== 'undefined',
         ethereumExists: !!window?.ethereum,
         isConnected,
@@ -46,14 +46,11 @@ export default function useHomeHooks() {
       setStatus(
         'Please switch to the Arbitrum Sepolia, Sepolia or Monad Tesnet in your wallet.',
       );
-      console.log('Wrong chain ID:', chainId);
+      console.error('Wrong chain ID:', chainId);
     } else {
       setStatus('');
     }
   }, [isConnected, chainId]);
-
-
-  console.log('Current status:', status);
 
   return {
     address,

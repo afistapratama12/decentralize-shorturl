@@ -2,6 +2,7 @@
 
 import { Link } from "lucide-react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ModeToggle } from "./ToggleTheme";
 
 export default function Navigation() {
   return (
@@ -23,6 +24,7 @@ export default function Navigation() {
             showBalance={false}
             accountStatus="avatar"
           />
+          <ModeToggle />
         </div>
       </div>
     </div>
