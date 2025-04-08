@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import urlShortenerJson from '@/lib/abi/urlShortener.json'
+import { abi } from '@/lib/abi'
 import { contractAddress } from '@/lib/env';
 
 export function getSignerContract(signer: ethers.JsonRpcSigner, network?: string) {
@@ -14,5 +14,5 @@ export function getSignerContract(signer: ethers.JsonRpcSigner, network?: string
     throw new Error('Contract address not configured');
   }
 
-  return new ethers.Contract(address, urlShortenerJson.abi, signer);
+  return new ethers.Contract(address, abi, signer);
 }

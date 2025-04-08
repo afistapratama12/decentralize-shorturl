@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { ethers } from 'ethers';
-import urlShortenerJson from '@/lib/abi/urlShortener.json';
+import { abi } from '@/lib/abi'
 import { getEnvCheck } from '@/lib/env';
 import { 
   NETWORK_ARB_SEPOLIA, 
@@ -52,7 +52,7 @@ export async function middleware(request: NextRequest) {
     const provider = new ethers.JsonRpcProvider(envCheck.rpcUrl);
     const contract = new ethers.Contract(
       envCheck.contractAddress,
-      urlShortenerJson.abi,
+      abi,
       provider,
     );
 
