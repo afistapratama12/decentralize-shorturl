@@ -10,6 +10,7 @@ contract UrlShortener {
 
   // Maps a short code (e.g. "abc123") to a ShortUrl struct
   mapping(string => ShortUrl) private shortUrls;
+  mapping(address => ShortUrl[]) private userUrls;
 
   // event emitted when a new short URL is created
   event URLShortened(string indexed shortCode, string longUrl);
@@ -26,15 +27,20 @@ contract UrlShortener {
     // or handle collisions differently. For now we allow overwriting.
 
     // Check mapping for existing short code
-    ShortUrl storage existingShortUrl = shortUrls[shortCode];
     // if exist return error, except is deleted
-    require(existingShortUrl.owner == address(0) || bytes(existingShortUrl.longUrl).length == 0, "Short code already exists");
+    require(shortUrls[shortCode].owner == address(0) || bytes(shortUrls[shortCode].longUrl).length == 0, "Short code already exists");
     // Create a new ShortUrl struct and store it in the mapping
-    shortUrls[shortCode] = ShortUrl({
+    
+    ShortUrl memory newShortUrl = ShortUrl({
       owner: msg.sender,
       shortCode: shortCode,
       longUrl: longUrl
     });
+
+    shortUrls[shortCode] = newShortUrl;
+
+    // Add the new ShortUrl to the user's list of URLs
+    userUrls[msg.sender].push(newShortUrl);
 
     emit URLShortened(shortCode, longUrl);
   }
@@ -59,5 +65,19 @@ contract UrlShortener {
     require(shortUrl.owner == msg.sender, "Only the owner can delete this URL");
     require(bytes(shortUrl.longUrl).length > 0, "Short code not found");
     delete shortUrls[shortCode];
+
+    // Remove the ShortUrl from the user's list of URLs
+    ShortUrl[] storage urls = userUrls[msg.sender];
+    for (uint256 i = 0; i < urls.length; i++) {
+      if (keccak256(abi.encodePacked(urls[i].shortCode)) == keccak256(abi.encodePacked(shortCode))) {
+        urls[i] = urls[urls.length - 1]; // Move the last element into the deleted spot
+        urls.pop(); // Remove the last element
+        break;
+      }
+    }
+  }
+
+  function listURL() external view returns (ShortUrl[] memory) {
+    return userUrls[msg.sender];
   }
 }
