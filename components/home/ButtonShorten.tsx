@@ -1,8 +1,10 @@
 import { JsonRpcSigner } from "ethers";
+import { Turnstile } from "next-turnstile";
 import { Button } from "@/components/ui/button";
 
 import { getSignerContract } from "@/lib/contract";
 import { checkURL, getNetworks, getNewLink, unAllowChainID } from "@/lib/helpers";
+import { useState } from "react";
 
 export type ButtonShortenProps = {
   chainId: number;
@@ -25,6 +27,9 @@ export default function ButtonShorten({
   setStatus,
   setGeneratedLink
 }: ButtonShortenProps) {
+  const [turnstileStatus, setTurnstileStatus] = useState<
+    "success" | "error" | "expired" | "required"
+  >("required");
   
   async function shortenURL() {
     console.log('Starting shortenURL function...');
@@ -52,6 +57,11 @@ export default function ButtonShorten({
 
     if (!checkURL(longUrl)) {
       alert('Please enter a valid URL.');
+      return;
+    }
+
+    if (turnstileStatus !== "success") {
+      alert("Please verify you are not a robot");
       return;
     }
 
@@ -90,29 +100,51 @@ export default function ButtonShorten({
   }
 
   return <>
-    <Button
-      onClick={shortenURL}
-      // className={`rounded-md text-sm flex w-full justify-center border border-transparent px-4 py-2 font-medium ${
-      //   isConnected && !status.includes('Transaction pending')
-      //     ? 'bg-blue-600 text-white hover:bg-yellow-dark-10 focus:outline-none focus:ring-2 focus:ring-yellow-dark-9 focus:ring-offset-2'
-      //     : 'bg-blue-900 cursor-not-allowed text-gray-dark-1'
-      // }`}
+    <div className="flex flex-col gap-2 items-center">
+      <Turnstile
+        siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
+        retry="auto"
+        refreshExpired="auto"
+        sandbox={process.env.NODE_ENV === "development"}
+        onError={() => {
+          setTurnstileStatus("error");
+          alert("Security check failed. Please try again.");
+        }}
+        onExpire={() => {
+          setTurnstileStatus("expired");
+          alert("Security check expired. Please verify again.");
+        }}
+        onLoad={() => {
+          setTurnstileStatus("required");
+        }}
+        onVerify={(token) => {
+          setTurnstileStatus("success");
+        }}
+      />
+      <Button
+        onClick={shortenURL}
+        // className={`rounded-md text-sm flex w-full justify-center border border-transparent px-4 py-2 font-medium ${
+        //   isConnected && !status.includes('Transaction pending')
+        //     ? 'bg-blue-600 text-white hover:bg-yellow-dark-10 focus:outline-none focus:ring-2 focus:ring-yellow-dark-9 focus:ring-offset-2'
+        //     : 'bg-blue-900 cursor-not-allowed text-gray-dark-1'
+        // }`}
 
-      className={
-        `w-full font-bold rounded-lg text-white shadow-md cursor-pointer ` +
-        `h-12 text-md ${status.includes('Transaction pending') ? 
-          `bg-blue-600`
-          : `hover:bg-blue-600 bg-blue-500`
-        }`
-      }
-      disabled={!isConnected || status.includes('Transaction pending')}
-    >
-      {
-        !isConnected ? "Please Connect Wallet" :
-          status.includes('Transaction pending')
-            ? 'Processing...'
-            : 'Shorten URL'}
-    </Button>
+        className={
+          `w-full font-bold rounded-lg text-white shadow-md cursor-pointer ` +
+          `h-12 text-md ${status.includes('Transaction pending') ? 
+            `bg-blue-600`
+            : `hover:bg-blue-600 bg-blue-500`
+          }`
+        }
+        disabled={!isConnected || status.includes('Transaction pending') || status.includes("Transaction sent")}
+      >
+        {
+          !isConnected ? "Please Connect Wallet" :
+            status.includes('Transaction pending') || status.includes("Transaction sent")
+              ? 'Processing...'
+              : 'Shorten URL'}
+      </Button>
+    </div>
   </>
 
 }
