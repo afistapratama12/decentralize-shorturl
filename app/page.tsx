@@ -22,17 +22,17 @@ export default function URLShortenerApp() {
       {!generatedLink ? (
         <>
           <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-12 text-center">
-            <h1 className="text-4xl font-bold mb-6">
+            <h1 className="text-4xl font-bold mb-4 md:mb-6">
               Simplify Your Links
               <br />
-              Speed Up Your Access!
+              <span>Speed Up Your Access!</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-12">
               Shorten your URLs and experience the ease of fast sharing using
               blockchain technology.
             </p>
           </div>
-          <div className="flex justify-center mx-4 lg:mx-0">
+          <div className="flex justify-center mx-4 lg:mx-0 mb-6">
             <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 lg:bg-gray-dark-2 px-8 lg:px-10 py-8 shadow-xl lg:shadow-2xl dark:shadow-lg dark:shadow-blue-500/30">
               <div className="space-y-4">
                 <div>

@@ -37,7 +37,7 @@ export default function GeneratedLink({
   <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 text-center">
     <p className="text-xl text-dark-foreground mb-12">Copy Your Link and Share It!</p>
   </div>
-  <div className="flex justify-center mx-4 lg:mx-0">
+  <div className="flex justify-center mx-4 lg:mx-0 mb-6">
     <div className="rounded-xl w-full max-w-3xl space-y-8 border border-gray-dark-4 bg-gray-dark-2 px-8 lg:px-10 py-8 shadow-xl lg:shadow-2xl dark:shadow-lg dark:shadow-blue-500/30">
       <div className="space-y-4">
         <div className="flex justify-between gap-4">
@@ -49,7 +49,7 @@ export default function GeneratedLink({
               </a>
             ) : (
               <a href={linkExplorerUrl} target="_blank" rel="noopener noreferrer" className="font-semibold cursor-pointer hover:text-slate-600 dark:hover:text-gray-300">
-                {txHash.slice(0, 8) + "..." + txHash.slice(txHash.length - 6)}
+                {txHash.slice(0, 6) + "..." + txHash.slice(txHash.length - 4)}
               </a>
             )
           }
@@ -93,6 +93,7 @@ export default function GeneratedLink({
             Visit
         </Button>
         <QRCode 
+         isLargeScreen={isLargeScreen}
           generatedLink={generatedLink}
         />
         <ShareSocial 
@@ -119,7 +120,7 @@ export default function GeneratedLink({
   </>)
 }
 
-export function QRCode({generatedLink}: {generatedLink: string}) {
+export function QRCode({isLargeScreen, generatedLink}: {isLargeScreen: boolean, generatedLink: string}) {
   const { Canvas } = useQRCode()
 
   function downloadQRCode(format: string) {
@@ -135,7 +136,7 @@ export function QRCode({generatedLink}: {generatedLink: string}) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="cursor-pointer text-sm lg:text-md">QR Code</Button>
+        <Button variant="outline" className="cursor-pointer text-sm lg:text-md">{isLargeScreen ? "QR Code" : "QR"}</Button>
       </DialogTrigger>
       <DialogContent 
         // className="sm:max-w-[425px]"
