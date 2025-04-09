@@ -22,3 +22,33 @@ export const NETWORK_SEPOLIA = "sepolia"
 export const NETWORK_ARB_SEPOLIA = "arbitrumSepolia"
 export const NETWORK_MONAD_TESTNET = "monadTestnet"
 export const NETWORK_HARDHAT = "hardhat"
+
+
+export type FaucetLink = {
+  id: string;
+  name: string;
+  link: string;
+}
+
+export const listFaucetLink: FaucetLink[] = [
+  {
+    id: "arbitrumSepolia",
+    name: "Arbitrum Sepolia",
+    link: "https://www.alchemy.com/faucets/arbitrum-sepolia"
+  },
+  {
+    id: "sepolia",
+    name: "Ethereum Sepolia",
+    link: "https://www.alchemy.com/faucets/ethereum-sepolia"
+  },
+  {
+    id: "monadTestnet",
+    name: "Monad Testnet",
+    link: "https://testnet.monad.xyz/#getting-started"
+  },
+  {
+    id: "sepoliaPoW",
+    name: "ETH Sepolia PoW",
+    link: "https://sepolia-faucet.pk910.de/"
+  }
+]

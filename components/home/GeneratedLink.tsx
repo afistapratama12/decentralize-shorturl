@@ -174,7 +174,6 @@ export function QRCode({isLargeScreen, generatedLink}: {isLargeScreen: boolean, 
   )
 }
 
-
 export function ShareSocial({generatedLink}: {generatedLink: string}) {
   const shareUrl = (platform: string) => {
     let shareLink = '';
@@ -235,7 +234,7 @@ export function ShareSocial({generatedLink}: {generatedLink: string}) {
 export function BlueButton({children, onClick}: {children: React.ReactNode, onClick: () => void}) {
   return (
     <Button
-      className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-md shadow-md"
+      className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-md shadow-md dark:text-white"
       onClick={onClick}
     >
       {children}

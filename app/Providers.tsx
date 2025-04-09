@@ -7,6 +7,7 @@ import { RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { config } from '@/lib/wagmi';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { ARBITRUM_SEPOLIA_CHAIN_ID } from '@/lib/const';
 
 const theme = darkTheme({
   accentColor: '#0E76FD',
@@ -42,7 +43,10 @@ export default function Web3Providers({ children }: { children: React.ReactNode 
     >
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <RainbowKitProvider theme={theme}>
+        <RainbowKitProvider 
+          theme={theme} 
+          initialChain={ARBITRUM_SEPOLIA_CHAIN_ID}
+        >
           {children}
         </RainbowKitProvider>
       </QueryClientProvider>

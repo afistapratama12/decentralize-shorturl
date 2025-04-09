@@ -6,6 +6,7 @@ import useHomeHooks from "@/hooks/home.hooks";
 import ButtonShorten from "@/components/home/ButtonShorten";
 import Navigation from "@/components/Navigation";
 import GeneratedLink from "@/components/home/GeneratedLink";
+import Footer from "@/components/Footer";
 
 export default function URLShortenerApp() {
   const { isConnected, signer, chainId, status, setStatus } =
@@ -17,11 +18,12 @@ export default function URLShortenerApp() {
   const [txHash, setTxHash] = useState("");
 
   return (
-    <div>
-      <Navigation />
+    <>
+    <Navigation />
+    <main>
       {!generatedLink ? (
         <>
-          <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-12 text-center">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8 pt-8 text-center">
             <h1 className="text-4xl font-bold mb-4 md:mb-6">
               Simplify Your Links
               <br />
@@ -56,7 +58,7 @@ export default function URLShortenerApp() {
                     <input
                       placeholder={urlPath("cuty.im", chainId)}
                       className={`bg-muted px-3 py-2 text-center ` +
-                        "font-normal w-22 text-sm dark:text-white " +
+                        "font-normal w-24 text-sm dark:text-white " +
                         "lg:font-semibold lg:w-xs lg:text-base"
                       }
                       disabled={true}
@@ -111,6 +113,8 @@ export default function URLShortenerApp() {
       ) : (
         <GeneratedLink generatedLink={generatedLink} longUrl={longUrl} txHash={txHash} chainId={chainId} />
       )}
-    </div>
+    </main>
+    <Footer />
+    </>
   );
 }

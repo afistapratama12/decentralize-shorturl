@@ -12,7 +12,7 @@ function useIsLargeScreen() {
       setIsLargeScreen(e.matches);
     };
 
-    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const mediaQuery = window.matchMedia("(min-width: 768px)");
 
     mediaQuery.addEventListener('change', handleResize);
 
